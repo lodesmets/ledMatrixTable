@@ -7,11 +7,21 @@ TARGET = ledTableProject
 CONFIG += console
 CONFIG -= app_bundle
 
+LIBS += -L$$PWD/../lib -lws2811
+INCLUDEPATH += $$PWD/../lib/include
+
 TEMPLATE = app
+
 
 SOURCES += main.cpp \
     controllerclass.cpp \
-    ws2812-rpi.cpp
+    applicationbase.cpp \
+    applicationinput.cpp \
+    ledmatrix.cpp \
+    updatethread.cpp \
+    fonts.cpp \
+    applicationtest.cpp \
+    applicationpong.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -26,5 +36,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     controllerclass.h \
-    ws2812-rpi.h \
-    ws2812-rpi-defines.h
+    applicationbase.h \
+    applicationinput.h \
+    ledmatrix.h \
+    updatethread.h \
+    fonts.h \
+    applicationtest.h \
+    applicationpong.h
+
+DISTFILES += \
+    settings
+
+
