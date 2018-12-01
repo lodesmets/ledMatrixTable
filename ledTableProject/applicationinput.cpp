@@ -27,3 +27,9 @@ void applicationInput::inputReceived(QStringList input)
     value=input[2].toInt(&ok,16);
     matrix[y * WIDTH + x]=value;
 }
+
+void applicationInput::initApp()
+{
+    clear();
+    stopShowingText();
+}

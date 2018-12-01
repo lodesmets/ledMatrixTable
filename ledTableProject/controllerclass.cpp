@@ -4,13 +4,12 @@
 #include "applicationinput.h"
 #include "applicationtest.h"
 #include "applicationpong.h"
-
+#include "applicationsnake.h"
+#include "applicationstart.h"
+#include "applicationchristmas.h"
+#include <QHostInfo>
 controllerClass::controllerClass(QObject *parent) : QObject(parent)
 {
-
-
-
-
     //create tcp server
     tcpServer=new QTcpServer(this);
     if(!tcpServer->listen(QHostAddress::Any,0)){
@@ -52,10 +51,14 @@ controllerClass::controllerClass(QObject *parent) : QObject(parent)
     connect(timer, SIGNAL(timeout()), this, SLOT(matrix_render()));
     timer->start(FRAMETIME);
 
-    apps.append(new applicationInput(this,matrix));
-    apps.append(new applicationTest(this,matrix));
-    apps.append(new applicationPong(this,matrix));
-    apps.at(2)->start();
+    apps.insert("input",new applicationInput(this,matrix));
+    apps.insert("test",new applicationTest(this,matrix));
+    apps.insert("pong",new applicationPong(this,matrix));
+    apps.insert("snake",new applicationSnake(this,matrix));
+    apps.insert("start",new applicationStart(this,matrix,"192.168.0.138",tcpServer->serverPort()));
+    apps.insert("christmas",new applicationchristmas(this,matrix));
+    activeApp = apps.value("christmas");
+    activeApp->start();
 }
 
 controllerClass::~controllerClass()
@@ -79,14 +82,18 @@ void controllerClass::newConnection()
         QString message=socket->readLine();
         std::cout<<message.toStdString()<<std::endl;
         QStringList messageList=message.split('>');
-        if (messageList.size()==3){
-            if (messageList.at(0)=="newUser"){
-                users[messageList.at(1).toInt()]=messageList.at(1);
-                socket->write(QString("%1OK").arg(messageList.at(1)).toUtf8());
-            }
+        if (messageList.at(0)=="newUser"){
+            users[messageList.at(1).toInt()]=messageList.at(1);
+            socket->write(QString("%1OK").arg(messageList.at(1)).toUtf8());
+        }
+        else if (messageList.at(0)=="active")
+        {
+            activeApp->stop();
+            activeApp = apps.value(messageList.at(1));
+            activeApp->start();
         }
         else
-            apps.at(2)->inputReceived(messageList);
+            activeApp->inputReceived(messageList);
 
     });
 }

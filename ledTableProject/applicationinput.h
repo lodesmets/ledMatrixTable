@@ -13,7 +13,7 @@ public:
     void inputReceived(QStringList input);
 
 private:
-
+    void initApp();
 
 private slots:
     void tick();

@@ -31,7 +31,8 @@ private slots:
 private:
     QTcpServer *tcpServer;
     QString users[4];
-    QList<applicationBase*> apps;
+    applicationBase * activeApplication;
+    QHash<QString,applicationBase*> apps;
     ledMatrix *ledMatrixController;
     updateThread * t;
     ws2811_t ledstring;

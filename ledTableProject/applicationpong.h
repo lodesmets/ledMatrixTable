@@ -24,6 +24,7 @@ private:
     void draw();
     void moveBall();
     void checkHit();
+    void initApp();
 
 private slots:
     void tick();

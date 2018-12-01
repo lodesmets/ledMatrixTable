@@ -21,7 +21,10 @@ SOURCES += main.cpp \
     updatethread.cpp \
     fonts.cpp \
     applicationtest.cpp \
-    applicationpong.cpp
+    applicationpong.cpp \
+    applicationsnake.cpp \
+    applicationstart.cpp \
+    applicationchristmas.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -42,7 +45,10 @@ HEADERS += \
     updatethread.h \
     fonts.h \
     applicationtest.h \
-    applicationpong.h
+    applicationpong.h \
+    applicationsnake.h \
+    applicationstart.h \
+    applicationchristmas.h
 
 DISTFILES += \
     settings

@@ -9,7 +9,7 @@
 #include <QString>
 #include "settings"
 
-enum directionEnum {NONE,LEFT,RIGHT,UP,DOWN,UPLEFT,UPRIGHT,DOWNLEFT,DOWNRIGHT};
+enum directionEnum {NONE,LEFT=0,RIGHT=1,UP=2,DOWN=3,UPLEFT,UPRIGHT,DOWNLEFT,DOWNRIGHT};
 
 struct scrollText
 {
@@ -17,6 +17,7 @@ struct scrollText
     int y;
     int length;
     int height;
+    bool small;
     ws2811_led_t color;
     directionEnum direction;
     QString text;
@@ -39,13 +40,14 @@ private:
     QHash<QChar,QVector<QVector<bool>>> fontBig;
     void createSmallFont();
     void createBigFont();
-
+    virtual void initApp();
+    virtual void closeApp();
 
 protected:
     uchar fps;
     ws2811_led_t *matrix;
     void drawRectangle(uchar x1, uchar y1, uchar x2, uchar y2, ws2811_led_t color);
-    void clear();
+    void clear(); 
     void stopShowingText();
     int textShowing();
     void drawText(int x1, int y1, QString text, ws2811_led_t color, bool small=false);

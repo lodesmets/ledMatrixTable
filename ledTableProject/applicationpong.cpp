@@ -3,22 +3,7 @@
 
 applicationPong::applicationPong(QObject *parent, ws2811_led_t *ledMatrix) : applicationBase(parent,ledMatrix)
 {
-    maxTicks = 10;
-    state = WAITREADY;
-    speedupCounter = 0;
-    tickCounter = 0;
     fps = 30;
-    yp1 = 7;
-    p1Ready = false;
-    colorP1 = 0xFF0000;
-    yp2 = 7;
-    p2Ready = false;
-    colorP2 = 0xFF;
-    p1Score = 0;
-    p2Score = 0;
-    colorBall = 0xFFFFFF;
-    xball = 12;
-    yball = 8;
 }
 
 applicationPong::~applicationPong()
@@ -314,6 +299,25 @@ void applicationPong::checkHit()
             direction = URIGHT;
         }
     }
+}
+
+void applicationPong::initApp()
+{
+    maxTicks = 10;
+    state = WAITREADY;
+    speedupCounter = 0;
+    tickCounter = 0;
+    yp1 = 7;
+    p1Ready = false;
+    colorP1 = 0xFF0000;
+    yp2 = 7;
+    p2Ready = false;
+    colorP2 = 0xFF;
+    p1Score = 0;
+    p2Score = 0;
+    colorBall = 0xFFFFFF;
+    xball = 12;
+    yball = 8;
 }
 
 void applicationPong::tick()
