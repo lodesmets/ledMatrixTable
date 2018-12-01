@@ -57,6 +57,7 @@ controllerClass::controllerClass(QObject *parent) : QObject(parent)
     apps.insert("snake",new applicationSnake(this,matrix));
     apps.insert("start",new applicationStart(this,matrix,"192.168.0.138",tcpServer->serverPort()));
     apps.insert("christmas",new applicationchristmas(this,matrix));
+
     activeApp = apps.value("christmas");
     activeApp->start();
 }

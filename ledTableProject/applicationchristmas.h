@@ -11,10 +11,6 @@ public:
     void inputReceived(QStringList input);
 
 
-private:
-    void initApp();
-    void closeApp();
-
 private slots:
     void tick();
 };
